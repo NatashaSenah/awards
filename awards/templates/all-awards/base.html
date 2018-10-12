@@ -12,15 +12,18 @@
   {% endif %}
   {% block styles %}
     {% bootstrap_css %}
-    link rel="stylesheet" href="{% static 'css/basenews.css' %}">
+    <link rel="stylesheet" href="{% static 'css/baseawards.css' %}">
   {% endblock %}
 
 </head>
 <body>
-    {% include "navbar.html" %}
+  
+    
+    {% block content %}
   {% block scripts %}
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 {% bootstrap_javascript %}
+{% endblock %}
 {% endblock %}
 </body>
 </html>

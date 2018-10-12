@@ -1,2 +1,38 @@
-{% extend 'all-awards/base.html' %}
+{% extends 'all-awards/base.html' %}
+{% block content %}
+<div class="jumbotron">
+    <div class="col-md-3">
+            <div id="mySidenav" class="sidenav">
+                    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                    <a href="#">About</a>
+                    <a href="#">Services</a>
+                    <a href="#">Clients</a>
+                    <a href="#">Contact</a>
+                  </div>
+                  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+
+                  <script>
+                  function openNav() {
+                      document.getElementById("mySidenav").style.width = "250px";
+                  }
+                  
+                  function closeNav() {
+                      document.getElementById("mySidenav").style.width = "0";
+                  }
+                  </script>
+    </div>
+    <div class="col-md-6">
+        <img src="static/images/Award.png" width="300px" height="50px">
+    </div>
+    <div class="col-md-3">
+            <button class="button">REGISTER/LOGIN</button>
+            <input type="button" class="button" value="SUBMIT Button">
+            
+    </div>
+</div>
+
+<div id="behind">
+    <img src="static/images/jason.jpg" width="1350px">
+</div>
+
 {% endblock %}
