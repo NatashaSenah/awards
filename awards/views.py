@@ -1,5 +1,6 @@
+from .forms import NewProjectForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 
 # Create your views here.
@@ -24,3 +25,17 @@ def search_results(request):
     else:
         message = "You haven't searched for any term"
         return render(request, 'all-awards/search.html',{"message":message})
+@login_required(login_url='/accounts/login/')
+def new_project(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.editor = current_user
+            project.save()
+        return redirect('home')
+
+    else:
+        form = NewProjectForm()
+    return render(request, 'new_project.html', {"form": form})

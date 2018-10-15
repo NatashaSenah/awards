@@ -2,7 +2,7 @@
 {% load bootstrap3 %}
 {% block content %}
 <div class="jumbotron">
-    <div class="col-md-3">
+    <div class="col-md-2">
             <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <a href="#">About</a>
@@ -22,15 +22,18 @@
                   }
                   </script>
     </div>
-    <div class="col-md-3">
-        <img src="static/images/Award.png" width="300px" height="50px">
+    <div class="col-md-2">
+        <a class="btn" type='button' href='/accounts/profile'>PROFILE</a>
     </div>
-    <div class="col-md-3">
-            <a class="btn" type='button' href='/accounts/register'>REGISTER/LOGIN</a>
-            <input type="button" class="button" value="SUBMIT Button">
+    <div class="col-md-2">
+        <img src="static/images/Award.png" width="200px" height="50px">
+    </div>
+    <div class="col-md-2">
+            <a class="btn" type='button' href='/accounts/register'>REGISTER</a>
+            <a class="btn" type='button' href="{% url 'new-project' %}">SUBMIT</a>
             
     </div>
-    <div class="col-md-3">
+    <div class="col-md-2">
             <form class="jumbo-form" role="search" action="{% url 'search_results' %}">
 
                     <div class="input-group">
@@ -43,7 +46,7 @@
                   </form>
                 </div>
                 <!-- search form end -->
-          
+                <a class="btn" type='button' href='/accounts/logout'>LOGOUT</a>
     </div>
 </div>
 

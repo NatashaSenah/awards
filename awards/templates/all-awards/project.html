@@ -14,10 +14,15 @@
      <p>{{project.post}}</p>
    </div>
 
-   <!-- <div class="row">
-     <p>Posted {{article.pub_date|timesince}} by {{article.editor.first_name}}</p>
-   </div> -->
-
- </div>
-
- {% endblock %}
+   <div class="row">
+      {% autoescape on %}
+      {{article.post| safe}}
+     {% endautoescape %}
+ 
+    </div>
+ 
+    
+ 
+  </div>
+ 
+  {% endblock %}
