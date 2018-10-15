@@ -1,4 +1,5 @@
 {% extends 'all-awards/base.html' %}
+{% load bootstrap3 %}
 {% block content %}
 <div class="jumbotron">
     <div class="col-md-3">
@@ -25,7 +26,7 @@
         <img src="static/images/Award.png" width="300px" height="50px">
     </div>
     <div class="col-md-3">
-            <button class="button">REGISTER/LOGIN</button>
+            <a class="btn" type='button' href='/accounts/register'>REGISTER/LOGIN</a>
             <input type="button" class="button" value="SUBMIT Button">
             
     </div>
@@ -68,7 +69,7 @@
         </div>
     
       <div class="col-md-4"> 
-       <img id="pic" src="static/images/instagram.jpg"  style="width:200%;max-width:400px;height:200px">
+       <img id="tic" src="static/images/instagram.jpg"  style="width:200%;max-width:400px;height:200px">
        <div id="myModal" class="modal">
             <span class="close">&times;</span>
             <img class="modal-content" id="img01">
@@ -80,7 +81,7 @@
           var modal = document.getElementById('myModal');
           
           // Get the image and insert it inside the modal - use its "alt" text as a caption
-          var img = document.getElementById('pic');
+          var img = document.getElementById('tic');
           var modalImg = document.getElementById("img01");
           var captionText = document.getElementById("caption");
           img.onclick = function(){
@@ -100,7 +101,7 @@
           </div> 
           
           <div class="col-md-4">
-          <img id="pic" src="static/images/jay.jpg"  style="width:200%;max-width:400px;height:200px">
+          <img id="tac" src="static/images/jay.jpg"  style="width:200%;max-width:400px;height:200px">
           <div id="myModal" class="modal">
                 <span class="close">&times;</span>
                 <img class="modal-content" id="img01">
@@ -112,7 +113,7 @@
               var modal = document.getElementById('myModal');
               
               // Get the image and insert it inside the modal - use its "alt" text as a caption
-              var img = document.getElementById('pic');
+              var img = document.getElementById('tac');
               var modalImg = document.getElementById("img01");
               var captionText = document.getElementById("caption");
               img.onclick = function(){
