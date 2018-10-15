@@ -18,7 +18,7 @@ class Project(models.Model):
     def save_project(self):
         self.save()
 class Profile(models.Model):
-    bio = models.TextField(max_length=500, blank=True)
+    bio = models.TextField(blank=True)
     profile_photo= models.ImageField()
     
 
