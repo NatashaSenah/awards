@@ -22,14 +22,15 @@
                   }
                   </script>
     </div>
+    {{request.user.username}}
     <div class="col-md-2">
-        <a class="btn" type='button' href='/accounts/profile'>PROFILE</a>
+        <a class="btn" type='button' href="/profile/{{request.user.username}}/">PROFILE</a>
     </div>
     <div class="col-md-2">
         <img src="static/images/Award.png" width="200px" height="50px">
     </div>
     <div class="col-md-2">
-            <a class="btn" type='button' href='/accounts/register'>REGISTER</a>
+            <a class="btn" type='button' href='/accounts/login'>Login</a>
             <a class="btn" type='button' href="{% url 'new-project' %}">SUBMIT</a>
             
     </div>
@@ -46,7 +47,8 @@
                   </form>
                 </div>
                 <!-- search form end -->
-                <a class="btn" type='button' href='/accounts/logout'>LOGOUT</a>
+                <a class="btn" type='button' href='/logout'>LOGOUT</a>
+                
     </div>
 </div>
 
@@ -84,4 +86,7 @@
               
               
 
+{% endblock %}
+{% block scripts %} {{block.super}}
+  <script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script>
 {% endblock %}

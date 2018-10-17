@@ -1,5 +1,19 @@
 from django.db import models
+from django.contrib.auth.models import User
 from tinymce.models import HTMLField
+from django.db.models.signals import post_save
+from django.contrib.auth.models import User
+from django.dispatch import receiver
+
+
+@receiver(post_save,sender=User)
+def create_profile(sender, instance,created,**kwargs):
+   if created:
+       Profile.objects.create(user=instance)
+
+@receiver(post_save,sender=User)
+def save_profile(sender, instance,**kwargs):
+   instance.profile.save()
 # Create your models here.
 class Project(models.Model):
     project_image = models.ImageField(upload_to = 'image/')
@@ -17,9 +31,11 @@ class Project(models.Model):
 
     def save_project(self):
         self.save()
+    
 class Profile(models.Model):
     bio = models.TextField(blank=True)
     profile_photo= models.ImageField()
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=1)
     
 
     def __str__(self):

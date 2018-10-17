@@ -1,11 +1,17 @@
-from .forms import NewProjectForm
+from .forms import NewProjectForm,ProfileForm
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.http  import HttpResponse
 from .models import Project,Profile
+from django.contrib.auth.models import User
+
 # Create your views here.
+@login_required
 def home(request):
-     return render(request, 'awards.html')
+    user = request.user
+    return render(request, 'awards.html', {'user':user})
+
+
 @login_required(login_url='/accounts/login/')
 def Projects(request, projects_id):
     try:
@@ -13,6 +19,8 @@ def Projects(request, projects_id):
     except DoesNotExist:
         raise Http404()
     return render(request,"all-awards/awards.html", {"project":project})
+
+
 def search_results(request):
 
     if 'project' in request.GET and request.GET["project"]:
@@ -39,17 +47,21 @@ def new_project(request):
     else:
         form = NewProjectForm()
     return render(request, 'new_project.html', {"form": form})
+
+
 def profile(request, username):
-    profile = User.objects.get(username=username)
+    profile = get_object_or_404(User,username=username)
  
     try:
         profile_details = Profile.get_by_id(profile.id)
     except:
         profile_details = Profile.filter_by_id(profile.id)
-    images = Image.get_profile_images(profile.id)
+    # images = Project.get_profile_images(profile.id)
     title = f'@{profile.username} Instagram photos and videos'
 
-    return render(request, 'profile/profile.html', {'title':title, 'profile':profile, 'profile_details':profile_details, 'images':images})
+    return render(request, 'profile/profile.html', {'title':title, 'profile':profile, 'profile_details':profile_details})
+
+
 def edit_profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST, request.FILES)
