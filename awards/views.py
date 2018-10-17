@@ -5,6 +5,10 @@ from django.http  import HttpResponse
 from .models import Project,Profile
 from django.contrib.auth.models import User
 # from django.http import JsonResponse
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import  MoringaMerch
+from .serializer import MerchSerializer
 
 # Create your views here.
 @login_required
@@ -76,3 +80,8 @@ def edit_profile(request):
         form = ProfileForm()
 
     return render(request, 'profile/edit_profile.html', {'form': form})
+class MerchList(APIView):
+    def get(self, request, format=None):
+        all_merch = MoringaMerch.objects.all()
+        serializers = MerchSerializer(all_merch, many=True)
+        return Response(serializers.data)
