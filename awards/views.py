@@ -2,7 +2,7 @@ from .forms import NewProjectForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse
-
+from .models import Project,Profile
 # Create your views here.
 def home(request):
      return render(request, 'awards.html')
@@ -39,3 +39,27 @@ def new_project(request):
     else:
         form = NewProjectForm()
     return render(request, 'new_project.html', {"form": form})
+def profile(request, username):
+    profile = User.objects.get(username=username)
+ 
+    try:
+        profile_details = Profile.get_by_id(profile.id)
+    except:
+        profile_details = Profile.filter_by_id(profile.id)
+    images = Image.get_profile_images(profile.id)
+    title = f'@{profile.username} Instagram photos and videos'
+
+    return render(request, 'profile/profile.html', {'title':title, 'profile':profile, 'profile_details':profile_details, 'images':images})
+def edit_profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            edit = form.save(commit=False)
+            edit.user = request.user
+            edit.save()
+            username = request.user.username
+            return redirect('profile', username=username)
+    else:
+        form = ProfileForm()
+
+    return render(request, 'profile/edit_profile.html', {'form': form})
