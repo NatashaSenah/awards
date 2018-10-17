@@ -62,5 +62,10 @@ class Profile(models.Model):
     def filter_by_id(cls, id):
         profile = cls.objects.filter(user=id).first()
         return profile
+class MoringaMerch(models.Model):
+    name = models.CharField(max_length=40)
+    description = models.TextField()
+    price = models.DecimalField(decimal_places=2, max_digits=20)
+
 
     
