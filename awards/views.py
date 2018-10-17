@@ -4,6 +4,7 @@ from django.shortcuts import render,redirect,get_object_or_404
 from django.http  import HttpResponse
 from .models import Project,Profile
 from django.contrib.auth.models import User
+# from django.http import JsonResponse
 
 # Create your views here.
 @login_required
@@ -46,7 +47,7 @@ def new_project(request):
 
     else:
         form = NewProjectForm()
-    return render(request, 'new_project.html', {"form": form})
+    return render(request, 'new_project.html', {"awards":awards,"form": form})
 
 
 def profile(request, username):
