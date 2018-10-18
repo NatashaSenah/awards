@@ -4,7 +4,7 @@ from tinymce.models import HTMLField
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from django.dispatch import receiver
-
+from django.core.validators import MinValueValidator,MaxValueValidator
 
 @receiver(post_save,sender=User)
 def create_profile(sender, instance,created,**kwargs):
@@ -21,7 +21,9 @@ class Project(models.Model):
     project_description = models.TextField()
     project_link = models.TextField()
     post = HTMLField()
+    user = models.ForeignKey(User,related_name='project')
     phone_number = models.CharField(max_length = 10)
+    
     @classmethod
     def search_by_title(cls,search_term):
         awards = cls.objects.filter(title__icontains=search_term)
@@ -34,8 +36,8 @@ class Project(models.Model):
     
 class Profile(models.Model):
     bio = models.TextField(blank=True)
-    profile_photo= models.ImageField()
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, default=1)
+    profile_photo= models.ImageField(upload_to = 'image/',null=True)
+    user = models.OneToOneField(User,related_name='profile' ,on_delete=models.CASCADE,)
     
 
     def __str__(self):
@@ -45,9 +47,7 @@ class Profile(models.Model):
     def save_profile(self):
         self.save()
 
-    class Meta:
-        ordering = ['bio']
-
+   
     @classmethod
     def search_profile(cls, name):
         profile = cls.objects.filter(user__username__icontains=name)
@@ -62,10 +62,13 @@ class Profile(models.Model):
     def filter_by_id(cls, id):
         profile = cls.objects.filter(user=id).first()
         return profile
-class MoringaMerch(models.Model):
-    name = models.CharField(max_length=40)
-    description = models.TextField()
-    price = models.DecimalField(decimal_places=2, max_digits=20)
 
+class Ratings(models.Model):
+    user = models.ForeignKey(User,on_delete=models.CASCADE)
+    post =  models.ForeignKey(Project,on_delete=models.CASCADE,related_name='likes')
+    design = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(10)])
+    usability = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(10)])
+    creativity = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(10)])
+    content = models.IntegerField(validators=[MinValueValidator(1),MaxValueValidator(10)])
 
     

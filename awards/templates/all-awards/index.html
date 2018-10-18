@@ -1,0 +1,45 @@
+{% extends 'all-awards/base.html' %}
+{% load bootstrap3 %}
+{% block content %}
+<div class="row">jk,hlijb
+  {{request.user.username}}
+  {{request.user.profile.bio}}
+  {% for post in posts %}
+<div class="col-md-4">
+  <div class="card mb-4">
+    <div class="card-header">
+      {% if post.user.profile.dp %}
+      <img src="{{post.user.profile.profile_photo.url}}" style="border-radius: 50%; width: 70px; height: 70px;" class="img-thumbnail " id="prof" alt="">
+      {% else %}
+      <img src="https://afcm.ca/wp-content/uploads/2018/06/no-photo.png" style="border-radius: 50%; width: 70px; height: 70px;" class="img-thumbnail " alt="">
+      {% endif %}
+      {{post.user.username}}
+      <br>
+      <div class="card"> 
+     <h3>Title:<h3>{{post.project_title}}</h3>
+     <h3>Description:<h3>{{post.project_description}}</h3>
+     <h3>Link:<h3>{{post.project_link}}</h3>
+      </div>
+    </div>
+   
+    <div>      
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <a href='/post/{{post.id}}'>
+              <div class="carousel-item active">
+                <img src="{{post.project_image.url}}" alt="Los Angeles" height="300px" width="400px"> 
+              </div>
+              
+            </div>
+        </a>
+          
+            
+          </div>
+</div>
+</div>
+<br>
+<br>
+  {% endfor %}
+</div>
+
+{% endblock %}

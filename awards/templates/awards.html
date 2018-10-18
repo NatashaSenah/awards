@@ -27,7 +27,7 @@
         <a class="btn" type='button' href="/profile/{{request.user.username}}/">PROFILE</a>
     </div>
     <div class="col-md-2">
-        <img src="static/images/Award.png" width="200px" height="50px">
+        <img src="../../static/images/Award.png" width="200px" height="50px">
     </div>
     <div class="col-md-2">
             <a class="btn" type='button' href='/accounts/login'>Login</a>
@@ -53,12 +53,87 @@
 </div>
 
 <div id="behind">
-    <img src="static/images/jason.jpg" width="1350px">
+    <img src="../../static/images/jason.jpg" width="1350px">
 </div>
+
+<a href="/profiles/{{post.user.id}}">
+{% if post.user.profile.dp%}
+
+  <h2><img  style="border-radius: 50%; width: 70px; height: 70px;" class="img-thumbnail " src="{{post.user.profile.dp.url}}" alt=""> {{post.user.username}}</h2>
+  {% else%}
+  <h4><img src="https://afcm.ca/wp-content/uploads/2018/06/no-photo.png" alt="" style="border-radius: 50%; width: 70px; height: 70px;" class="img-thumbnail "><a href="/profiles/{{post.user.id}}">{{post.user.username}}</a></h4> 
+  {% endif%}
+  </a>
+
+<img data-toggle="modal" data-target="#clap" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/129/clapping-hands-sign_1f44f.png" alt="">
+<br>
+<div class="container">
+    <div class="row">
+            <div class="loader"></div>
+            <div class="loader"></div>
+            <div class="loader"></div>
+            <div class="loader"></div>
+            <small style="color: black;position: relative;bottom:-39px;right:330px;">CREATIVITY</small>
+            <br>
+            <small style="color: black;position: relative;bottom:-39px;right:310px; "> DESIGN</small>
+            <br>
+            <small style="color: black;position: relative;bottom:-39px;right:290px;">USABILITY</small>
+            <br>
+            <small style="color: black;position: relative;bottom:-39px;right:260px;">CONTENT</small>
+            <p style="color: black;position: relative;bottom:20px;right:51%;">{{crea}}</p>
+            <p style="color: black;position: relative;bottom:20px;right:44%;">{{des}}</p>
+            <p style="color: black;position: relative;bottom:20px;right:36.5%;">{{usa}}</p>
+            <p style="color: black;position: relative;bottom:20px;right:29.5%;">{{cont}}</p>
+            <a href="{{post.link}}"><button class="btn btn-outline-success">View Site</button> </a>
+<div class="row">
+  <div class="col-md-4">
+      <div class="card" id="comments">
+        <div class="card-header">
+            <h4>Comments on {{ post.name}}</h4>
+        </div>
+        <div class="card-body">
+            <h5>
+                {% for com in post.comments.all %}
+                 <small><strong>{{com.user.username}}</strong>  : {{com.comment}}</small> 
+                  <br>
+                {% endfor %}
+            </h5>
+        </div>
+          
+      </div>
+  </div>
+  <div class="col-md-8">
+    <div class="row">
+      <div class="col-md-4">
+           
+          <img src="{{post.project_image.url}}" width='200' height='200' alt="">
+          
+      </div>
+    </div>
+      
+      
+  </div>
+  
+  </div>
+</div>
+<form action="" method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+  
+    {% bootstrap_form vote %}
+    
+    <button class='btn btn-primary' type='submit' >SUBMIT</button>
+  </form>
+
+
+
+{{crea}}
+{{des}}
+{{usa}}
+{{cont}}
 
       <div class="pic"> 
       <div class="col-md-4">
-            <img src="static/images/double.jpg"  class="image" style="width:200%;max-width:400px;height:200px">
+            <img src="../../static/images/double.jpg"  class="image" style="width:200%;max-width:400px;height:200px">
             <div class="middle">
                     <div class="text"><a href="https://natashasenah.github.io/Quotes/">Quote</a></div>
             </div>
@@ -68,7 +143,7 @@
 
     <div class="tic"> 
       <div class="col-md-4"> 
-       <img  src="static/images/instagram.jpg"  style="width:200%;max-width:400px;height:200px">
+       <img  src="../../static/images/instagram.jpg"  style="width:200%;max-width:400px;height:200px">
        <div class="middle">
             <div class="text"><a href="https://instagramus.herokuapp.com/">Instagram</a></div>
           </div>
@@ -76,7 +151,7 @@
     </div>
           <div class="toc"> 
           <div class="col-md-4">
-          <img id="tac" src="static/images/jay.jpg"  style="width:200%;max-width:400px;height:200px">
+          <img id="tac" src="../../static/images/jay.jpg"  style="width:200%;max-width:400px;height:200px">
           <div class="middle">
                 <div class="text"><a href="https://personal-gallerys.herokuapp.com/">Gallery</a></div>
               </div>
@@ -85,8 +160,8 @@
         </div>
               
               
+        {% block scripts %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        {% bootstrap_javascript %}
 
-{% endblock %}
-{% block scripts %} {{block.super}}
-  <script type="text/javascript" src="{%static 'js/newsletter.js'%}"></script>
-{% endblock %}
+        {% endblock %}{% endblock %}
