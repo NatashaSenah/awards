@@ -1,7 +1,7 @@
 {% extends 'all-awards/base.html' %}
 {% load bootstrap3 %}
 {% block content %}
-<div class="row">jk,hlijb
+<div class="row">
   {{request.user.username}}
   {{request.user.profile.bio}}
   {% for post in posts %}
@@ -15,11 +15,11 @@
       {% endif %}
       {{post.user.username}}
       <br>
-      <div class="card"> 
+      
      <h3>Title:<h3>{{post.project_title}}</h3>
      <h3>Description:<h3>{{post.project_description}}</h3>
      <h3>Link:<h3>{{post.project_link}}</h3>
-      </div>
+      
     </div>
    
     <div>      
@@ -27,7 +27,7 @@
             <div class="carousel-inner">
                 <a href='/post/{{post.id}}'>
               <div class="carousel-item active">
-                <img src="{{post.project_image.url}}" alt="Los Angeles" height="300px" width="400px"> 
+                <img src="{{post.project_image.url}}" alt="" height="300px" width="400px"> 
               </div>
               
             </div>

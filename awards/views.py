@@ -14,12 +14,29 @@ from .permissions import IsAdminOrReadOnly
 
 # Create your views here.
 @login_required
-def index(request):
+def post(request):
     posts = Project.objects.all()
-    return render(request,'all-awards/index.html',{"posts":posts})
+    return render(request,'all-awards/post.html',{"posts":posts})
 
 def awards(request):
-    return render(request,'awards.html')
+    vote = Votes()
+    if request.method == 'POST':
+
+            vote_form = Votes(request.POST)
+            if vote_form.is_valid():
+
+                    design = vote_form.cleaned_data['design']
+                    usability = vote_form.cleaned_data['usability']
+                    content = vote_form.cleaned_data['content']
+                    creativity = vote_form.cleaned_data['creativity']
+                    rating = Ratings(design=design,usability=usability,
+                                    content=content,creativity=creativity,
+                                    user=request.user,post=project)
+                    rating.save()
+                    return redirect('/')
+    else:
+        vote_form = Votes()
+    return render(request,'awards.html',{"vote":vote_form})
 
 @login_required(login_url='/accounts/login/')
 def projects(request, projects_id):
