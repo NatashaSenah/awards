@@ -6,10 +6,13 @@ This is an app whereby people can login view different projects and rate.
 * You need to have the python version3.
 * You then activate the virtual environment.
 * You then run the heroku app deployed and you will gain access to my app.
+
 ##Users stories
 * View posted projects
 * They can rate
 * View my profile page
+
+
 ##API EndPoints
 * Profile
 * Projects
